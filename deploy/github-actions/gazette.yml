@@ -1,0 +1,67 @@
+name: The Morning Gazette Autonomous Pipeline
+
+on:
+  schedule:
+    # Run every weekday at 06:00 UTC (09:00 AM TRT / 02:00 AM EDT)
+    - cron: '0 6 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      send_email:
+        description: 'Send actual emails via SMTP (true/false)'
+        required: false
+        default: 'false'
+        type: boolean
+
+jobs:
+  run-pipeline:
+    name: Run Gazette Pipeline
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run automated test suite
+        run: |
+          pytest -v
+
+      - name: Execute Morning Gazette Pipeline (Dry-Run / Dispatch)
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ secrets.GEMINI_MODEL || 'gemini-2.5-flash' }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT || 587 }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          SMTP_USE_TLS: ${{ secrets.SMTP_USE_TLS || 'true' }}
+          SMTP_USE_SSL: ${{ secrets.SMTP_USE_SSL || 'false' }}
+          SENDER_EMAIL: ${{ secrets.SENDER_EMAIL || 'editor@morninggazette.internal' }}
+          RECIPIENT_EMAILS: ${{ secrets.RECIPIENT_EMAILS }}
+          REQUEST_TIMEOUT: '10.0'
+          LOG_LEVEL: 'INFO'
+        run: |
+          if [ "${{ inputs.send_email }}" = "true" ] && [ -n "${{ secrets.SMTP_HOST }}" ]; then
+            echo "Running pipeline with live SMTP dispatch..."
+            python main.py --force-send
+          else
+            echo "Running pipeline in dry-run preview mode..."
+            python main.py --dry-run
+          fi
+
+      - name: Upload Gazette Preview Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: morning-gazette-edition
+          path: dist/preview.html
+          retention-days: 14

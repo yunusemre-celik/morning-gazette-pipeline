@@ -1,0 +1,480 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Morning Gazette</title>
+  <style type="text/css">
+    body, table, td, p, a, li, blockquote {
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+    table, td {
+      mso-table-lspace: 0pt;
+      mso-table-rspace: 0pt;
+    }
+    img {
+      -ms-interpolation-mode: bicubic;
+      border: 0;
+      height: auto;
+      line-height: 100%;
+      outline: none;
+      text-decoration: none;
+    }
+    body {
+      margin: 0 !important;
+      padding: 0 !important;
+      width: 100% !important;
+      background-color: #f6f3ec;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      color: #1f1d1d;
+    }
+    /* Newspaper Typography & Elements */
+    .container {
+      width: 100%;
+      max-width: 680px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border-left: 1px solid #d9d3c7;
+      border-right: 1px solid #d9d3c7;
+    }
+    .masthead-title {
+      font-family: 'Playfair Display', 'Times New Roman', Georgia, serif;
+      font-size: 42px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-align: center;
+      color: #111111;
+      line-height: 1.1;
+      padding: 16px 0 6px 0;
+    }
+    .masthead-sub {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      text-align: center;
+      color: #666666;
+      padding-bottom: 10px;
+    }
+    .dateline-bar {
+      border-top: 3px double #222222;
+      border-bottom: 1px solid #222222;
+      padding: 6px 14px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #333333;
+    }
+    .ticker-bar {
+      background-color: #fbf9f4;
+      border-bottom: 1px solid #e2ddd4;
+      padding: 8px 12px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 11px;
+    }
+    .ticker-item {
+      display: inline-block;
+      margin-right: 14px;
+      color: #222222;
+    }
+    .badge-positive {
+      color: #0b7538;
+      font-weight: bold;
+    }
+    .badge-negative {
+      color: #b31b1b;
+      font-weight: bold;
+    }
+    .kicker {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #8c1d18;
+      margin-bottom: 4px;
+    }
+    .headline-main-title {
+      font-size: 26px;
+      font-weight: bold;
+      line-height: 1.25;
+      color: #111111;
+      margin: 4px 0 10px 0;
+    }
+    .headline-main-title a {
+      color: #111111;
+      text-decoration: none;
+    }
+    .lead-paragraph {
+      font-size: 15px;
+      line-height: 1.55;
+      color: #222222;
+      margin-bottom: 10px;
+    }
+    .analysis-text {
+      font-size: 14px;
+      line-height: 1.5;
+      color: #444444;
+      margin-bottom: 12px;
+    }
+    .source-meta {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 11px;
+      color: #777777;
+    }
+    .source-meta a {
+      color: #8c1d18;
+      text-decoration: underline;
+      font-weight: 600;
+    }
+    .section-divider {
+      border-top: 1px solid #111111;
+      border-bottom: 1px solid #111111;
+      padding: 5px 0;
+      margin: 18px 0 14px 0;
+      text-align: center;
+    }
+    .section-heading {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #111111;
+      margin: 0;
+    }
+    .story-card-title {
+      font-size: 17px;
+      font-weight: bold;
+      line-height: 1.3;
+      margin: 4px 0 6px 0;
+    }
+    .story-card-title a {
+      color: #111111;
+      text-decoration: none;
+    }
+    .story-summary {
+      font-size: 13px;
+      line-height: 1.45;
+      color: #333333;
+      margin-bottom: 6px;
+    }
+    .takeaway-box {
+      background-color: #f7f5ef;
+      border-left: 3px solid #8c1d18;
+      padding: 6px 10px;
+      font-size: 12px;
+      line-height: 1.4;
+      color: #444444;
+      margin: 6px 0 8px 0;
+      font-style: italic;
+    }
+    .tool-box {
+      border: 1px solid #e4dfd5;
+      background-color: #fcfbf8;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+    }
+    .tool-tag {
+      display: inline-block;
+      background-color: #222222;
+      color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-radius: 2px;
+      margin-right: 6px;
+    }
+    .tool-title {
+      font-size: 15px;
+      font-weight: bold;
+      color: #111111;
+      display: inline;
+    }
+    .tool-title a {
+      color: #111111;
+      text-decoration: none;
+    }
+    .tool-desc {
+      font-size: 13px;
+      line-height: 1.45;
+      color: #333333;
+      margin: 5px 0 4px 0;
+    }
+    .tool-why {
+      font-size: 12px;
+      line-height: 1.4;
+      color: #666666;
+    }
+    .market-box {
+      background-color: #f9f7f2;
+      border: 1px solid #ded9cd;
+      padding: 14px 16px;
+      margin: 10px 0 16px 0;
+    }
+    .market-title {
+      font-size: 16px;
+      font-weight: bold;
+      color: #111111;
+      margin-bottom: 8px;
+    }
+    .market-body {
+      font-size: 13px;
+      line-height: 1.5;
+      color: #333333;
+      margin-bottom: 8px;
+    }
+    .footer {
+      border-top: 2px solid #222222;
+      padding: 16px 20px 24px 20px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 11px;
+      color: #777777;
+      text-align: center;
+      line-height: 1.5;
+      background-color: #fdfcf9;
+    }
+    @media only screen and (max-width: 640px) {
+      .column-cell {
+        display: block !important;
+        width: 100% !important;
+        padding-right: 0 !important;
+        padding-left: 0 !important;
+        box-sizing: border-box !important;
+      }
+      .masthead-title {
+        font-size: 32px !important;
+      }
+      .headline-main-title {
+        font-size: 22px !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Outer Canvas -->
+  <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #f6f3ec; width: 100%;">
+    <tr>
+      <td align="center" style="padding: 14px 8px;">
+
+        <!-- Main Gazette Wrapper -->
+        <table role="presentation" class="container" width="680" border="0" cellspacing="0" cellpadding="0" style="width: 100%; max-width: 680px; background-color: #ffffff; border: 1px solid #d9d3c7;">
+
+          <!-- Masthead Header -->
+          <tr>
+            <td align="center" style="padding: 12px 18px 4px 18px;">
+              <div class="masthead-title">The Morning Gazette</div>
+              <div class="masthead-sub">All The Tech, AI &amp; Financial Intelligence Fit To Print &bull; Autonomous Daily Edition</div>
+            </td>
+          </tr>
+
+          <!-- Dateline Bar -->
+          <tr>
+            <td>
+              <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" class="dateline-bar" style="width: 100%;">
+                <tr>
+                  <td align="left" style="font-size: 11px; font-weight: 700; color: #222222;">
+                    {{ content.edition_number }}
+                  </td>
+                  <td align="center" style="font-size: 11px; font-weight: 700; color: #222222;">
+                    {{ content.edition_date }}
+                  </td>
+                  <td align="right" style="font-size: 11px; font-weight: 700; color: #222222;">
+                    AUTONOMOUS PRINT
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Financial Market Ticker Strip -->
+          {% if content.raw_finance %}
+          <tr>
+            <td class="ticker-bar">
+              <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td align="center" style="font-size: 11px; line-height: 1.6;">
+                    {% for fx in content.raw_finance.fx_rates %}
+                      <span class="ticker-item">
+                        <strong>{{ fx.base_currency }}/{{ fx.target_currency }}:</strong> {{ "%.2f"|format(fx.rate) }} TL
+                      </span>
+                    {% endfor %}
+                    {% for c in content.raw_finance.crypto_prices %}
+                      <span class="ticker-item">
+                        <strong>{{ c.symbol }}:</strong> ${{ "{:,.0f}".format(c.price_usd) }}
+                        <span class="{{ 'badge-positive' if c.change_24h >= 0 else 'badge-negative' }}">
+                          ({{ "%+.2f"|format(c.change_24h) }}%)
+                        </span>
+                      </span>
+                    {% endfor %}
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          {% endif %}
+
+          <!-- Content Padding Cell -->
+          <tr>
+            <td style="padding: 16px 20px;">
+
+              <!-- ========================================================= -->
+              <!-- 1. LEAD HEADLINE STORY                                    -->
+              <!-- ========================================================= -->
+              <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td>
+                    <div class="kicker">{{ content.headline.kicker }}</div>
+                    <h1 class="headline-main-title">
+                      <a href="{{ content.headline.source_url }}" target="_blank">{{ content.headline.title }}</a>
+                    </h1>
+                    <div class="lead-paragraph">
+                      {{ content.headline.lead_paragraph }}
+                    </div>
+                    <div class="analysis-text">
+                      {{ content.headline.detailed_analysis }}
+                    </div>
+                    <div class="source-meta">
+                      Source: <strong>{{ content.headline.source_name }}</strong> &bull;
+                      <a href="{{ content.headline.source_url }}" target="_blank">Read Full Coverage &rarr;</a>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Section Divider: VENTURE & TECH -->
+              <div class="section-divider">
+                <span class="section-heading">&mdash;&nbsp; VENTURE &amp; TECHNOLOGY ANALYSES &nbsp;&mdash;</span>
+              </div>
+
+              <!-- ========================================================= -->
+              <!-- 2. TWO-COLUMN TECH & STARTUP STORIES                       -->
+              <!-- ========================================================= -->
+              <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
+                {% for pair in content.tech_startup_stories | batch(2) %}
+                <tr>
+                  <!-- Column Left -->
+                  <td class="column-cell" width="48%" valign="top" style="padding-right: 12px; padding-bottom: 16px;">
+                    {% set story = pair[0] %}
+                    <div class="kicker" style="font-size: 10px;">{{ story.category }}</div>
+                    <div class="story-card-title">
+                      <a href="{{ story.source_url }}" target="_blank">{{ story.title }}</a>
+                    </div>
+                    <div class="story-summary">{{ story.summary }}</div>
+                    <div class="takeaway-box">
+                      <strong>Strategic Takeaway:</strong> {{ story.key_takeaway }}
+                    </div>
+                    <div class="source-meta">
+                      Source: {{ story.source_name }} &bull;
+                      <a href="{{ story.source_url }}" target="_blank">Explore &rarr;</a>
+                    </div>
+                  </td>
+
+                  <!-- Column Right (if exists) -->
+                  {% if pair|length > 1 %}
+                  {% set story2 = pair[1] %}
+                  <td class="column-cell" width="48%" valign="top" style="padding-left: 12px; padding-bottom: 16px; border-left: 1px solid #ede8df;">
+                    <div class="kicker" style="font-size: 10px;">{{ story2.category }}</div>
+                    <div class="story-card-title">
+                      <a href="{{ story2.source_url }}" target="_blank">{{ story2.title }}</a>
+                    </div>
+                    <div class="story-summary">{{ story2.summary }}</div>
+                    <div class="takeaway-box">
+                      <strong>Strategic Takeaway:</strong> {{ story2.key_takeaway }}
+                    </div>
+                    <div class="source-meta">
+                      Source: {{ story2.source_name }} &bull;
+                      <a href="{{ story2.source_url }}" target="_blank">Explore &rarr;</a>
+                    </div>
+                  </td>
+                  {% else %}
+                  <td class="column-cell" width="48%" valign="top"></td>
+                  {% endif %}
+                </tr>
+                {% endfor %}
+              </table>
+
+              <!-- Section Divider: AI TOOLS & MODELS -->
+              <div class="section-divider">
+                <span class="section-heading">&mdash;&nbsp; AI TOOLS &amp; OPEN SOURCE SPOTLIGHT &nbsp;&mdash;</span>
+              </div>
+
+              <!-- ========================================================= -->
+              <!-- 3. AI TOOLS & MODELS CARDS                                -->
+              <!-- ========================================================= -->
+              <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td>
+                    {% for tool in content.ai_tools %}
+                    <div class="tool-box">
+                      <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                          <td>
+                            <span class="tool-tag">{{ tool.category }}</span>
+                            <span class="tool-title">
+                              <a href="{{ tool.source_url }}" target="_blank">{{ tool.name }}</a>
+                            </span>
+                            <div class="tool-desc">{{ tool.description }}</div>
+                            <div class="tool-why">
+                              <strong>Why It Matters:</strong> {{ tool.why_it_matters }}
+                              &bull; <a href="{{ tool.source_url }}" target="_blank" style="color: #8c1d18; text-decoration: underline; font-weight: 600;">View Repository / Paper &rarr;</a>
+                            </div>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                    {% endfor %}
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Section Divider: MARKET BRIEFING -->
+              <div class="section-divider">
+                <span class="section-heading">&mdash;&nbsp; FINANCIAL BRIEFING &amp; MARKET OUTLOOK &nbsp;&mdash;</span>
+              </div>
+
+              <!-- ========================================================= -->
+              <!-- 4. MARKET INSIGHT & COMMENTARY                             -->
+              <!-- ========================================================= -->
+              <div class="market-box">
+                <div class="market-title">Macroeconomic Overview &amp; Market Dynamics</div>
+                <div class="market-body">
+                  {{ content.market_insight.market_summary }}
+                </div>
+                <div class="market-body" style="font-size: 12px; color: #444444; border-top: 1px dashed #d5cfc2; padding-top: 8px;">
+                  <strong>Foreign Exchange:</strong> {{ content.market_insight.fx_commentary }}<br />
+                  <strong>Digital Assets:</strong> {{ content.market_insight.crypto_commentary }}
+                </div>
+                <div class="takeaway-box" style="margin-top: 8px; margin-bottom: 0;">
+                  <strong>Editorial Desk Take:</strong> {{ content.market_insight.editorial_take }}
+                </div>
+              </div>
+
+            </td>
+          </tr>
+
+          <!-- Footer & Colophon -->
+          <tr>
+            <td class="footer">
+              <strong style="color: #111111; letter-spacing: 1px; text-transform: uppercase;">The Morning Gazette &bull; Autonomous Editorial Pipeline</strong><br />
+              Synthesized autonomously from open-source APIs &amp; Google Gemini 2.5 Flash.<br />
+              Zero tracking &bull; Privacy-first &bull; Independent publication<br />
+              <span style="font-size: 10px; color: #999999;">&copy; {{ content.edition_date.split(',')[-1].strip() if content.edition_date else '2026' }} The Morning Gazette. All rights reserved.</span>
+            </td>
+          </tr>
+
+        </table>
+        <!-- /Main Gazette Wrapper -->
+
+      </td>
+    </tr>
+  </table>
+  <!-- /Outer Canvas -->
+</body>
+</html>
