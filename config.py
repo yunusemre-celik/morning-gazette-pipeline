@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import logging
 from pathlib import Path
-from typing import List, Optional
+from typing import List, Optional, Union
 from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -62,7 +62,7 @@ class Settings(BaseSettings):
         default="editor@morninggazette.internal",
         description="Sender email address appearing in the From header.",
     )
-    RECIPIENT_EMAILS: List[str] = Field(
+    RECIPIENT_EMAILS: Union[List[str], str] = Field(
         default_factory=lambda: ["reader@example.com"],
         description="List of recipient email addresses.",
     )
