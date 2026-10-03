@@ -30,7 +30,7 @@ def sample_gazette_content() -> GazetteContent:
         kicker="MANŞET HABER",
         title="Yeni Nesil Otonom Pipeline Mimarisi Hayata Geçti",
         lead_paragraph="Geliştirici ekibi modern gazete mizanpajında e-posta bülteni üreten boru hattını tamamladı.",
-        detailed_analysis="Açık kaynak API'ler, asenkron veri toplama ve Gemini 2.5 Flash ile entegre edilen sistem kusursuz çalışıyor.",
+        detailed_analysis="Açık kaynak API'ler, asenkron veri toplama ve Google Gemini ile entegre edilen sistem kusursuz çalışıyor.",
         source_name="The Morning Gazette",
         source_url="https://github.com/morning-gazette",
     )

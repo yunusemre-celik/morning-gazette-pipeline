@@ -2,7 +2,7 @@
 Summarizer Module powered by Google Gemini API with Graceful Degradation.
 
 Implements:
-1. Google Gemini 2.5 Flash with structured JSON output.
+1. Google Gemini Flash with structured JSON output.
 2. 3-step Exponential Backoff for 429/500 errors.
 3. FallbackSummarizer for offline, missing-key, or emergency resilience scenarios.
 """

@@ -1,13 +1,13 @@
 # 📰 The Morning Gazette Pipeline
 
 [![Python 3.12+](https://img.shields.io/badge/Python-3.12%2B-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/)
-[![AI - Google Gemini 3.8 Flash](https://img.shields.io/badge/AI-Google%20Gemini%203.8%20Flash-4285F4?style=flat&logo=google&logoColor=white)](https://ai.google.dev/)
+[![AI - Google Gemini](https://img.shields.io/badge/AI-Google%20Gemini-4285F4?style=flat&logo=google&logoColor=white)](https://ai.google.dev/)
 [![CI / CD - GitHub Actions](https://img.shields.io/badge/Automation-GitHub%20Actions-2088FF?style=flat&logo=githubactions&logoColor=white)](https://github.com/)
 [![Tests - 24/24 Passing](https://img.shields.io/badge/Tests-24%20Passed%20(100%25)-success?style=flat&logo=pytest&logoColor=white)]()
 [![Email - Gmail Safe < 85KB](https://img.shields.io/badge/Email%20HTML-Inlined%20%3C%2085%20KB-E65100?style=flat&logo=gmail&logoColor=white)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-> **An autonomous editorial pipeline that aggregates tech, AI, finance, and startup intelligence from free/open APIs, synthesizes it with Google Gemini 3.8 Flash into structured JSON, and compiles a vintage broadsheet newspaper email newsletter with inlined CSS strictly under 85 KB.**
+> **An autonomous editorial pipeline that aggregates tech, AI, finance, and startup intelligence from free/open APIs, synthesizes it with Google Gemini into structured JSON, and compiles a vintage broadsheet newspaper email newsletter with inlined CSS strictly under 85 KB.**
 
 ---
 
@@ -40,7 +40,7 @@
 
 **The Morning Gazette** re-imagines daily tech journalism through agentic engineering:
 1. **Zero-Auth & Free Data Ingestion**: Concurrently aggregates real-time signals from Hacker News, Lobsters, TechCrunch RSS, GitHub Search API, Hugging Face Daily Papers, Frankfurter FX rates, and CoinGecko crypto markets.
-2. **Structured LLM Intelligence**: Powered by **Google Gemini 3.8 Flash** with rigid Pydantic JSON schemas (`response_mime_type="application/json"`).
+2. **Structured LLM Intelligence**: Powered by **Google Gemini** with rigid Pydantic JSON schemas (`response_mime_type="application/json"`).
 3. **Resilience & Fault Isolation**: Each source runs in an isolated `try-except` boundary with a 10s timeout. Includes a 3-step exponential backoff retry mechanism (for 429/500/503 errors) and an offline **Emergency Fallback Engine** that guarantees zero-downtime execution even without an API key or during outages.
 4. **Classic Newspaper Aesthetics**: Rendered with Jinja2 into a responsive table-based email template (`newspaper.html`), inlined with `premailer`, and strictly compressed to **< 85 KB** to prevent Gmail clipping.
 5. **Clean SMTP Delivery**: Standard SSL/TLS SMTP client supporting modern providers like **Resend**, SendGrid, and Mailgun with zero external proprietary SDK bloat.
@@ -61,8 +61,8 @@ flowchart TD
         CG["CoinGecko (BTC & ETH Spot + 24h Change)"]
     end
 
-    subgraph IntelligenceLayer["Sub-Agent B: Reasoning & Schema (Gemini 3.8 Flash)"]
-        GEMINI["Google Gemini 3.8 Flash\n(response_schema=GazetteContent)"]
+    subgraph IntelligenceLayer["Sub-Agent B: Reasoning & Schema (Google Gemini AI)"]
+        GEMINI["Google Gemini AI\n(response_schema=GazetteContent)"]
         BACKOFF["Exponential Backoff\n(Retries on 429 / 500 / 503)"]
         FALLBACK["Rule-Based Fallback Engine\n(Offline & Emergency Synthesis)"]
     end
@@ -118,7 +118,7 @@ morning-gazette/
 ├── processors/               # AI reasoning & structured schema
 │   ├── __init__.py
 │   ├── schema.py             # Pydantic GazetteContent schema
-│   └── summarizer.py         # Gemini 3.8 Flash & FallbackSummarizer
+│   └── summarizer.py         # Google Gemini & FallbackSummarizer
 ├── builders/                 # Layout & email delivery
 │   ├── __init__.py
 │   └── email_builder.py      # Jinja2 renderer, Premailer inliner, SMTP client
