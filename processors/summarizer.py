@@ -173,7 +173,7 @@ class GeminiSummarizer:
     def __init__(self, settings: Optional[Settings] = None) -> None:
         self.settings = settings or get_settings()
         self.api_key = self.settings.GEMINI_API_KEY
-        self.model = self.settings.GEMINI_MODEL or "gemini-2.5-flash"
+        self.model = self.settings.GEMINI_MODEL or "gemini-3.8-flash"
         self.max_retries = max(1, self.settings.MAX_RETRIES)
 
     def _prepare_prompt(self, raw_data: AggregatedRawData) -> str:

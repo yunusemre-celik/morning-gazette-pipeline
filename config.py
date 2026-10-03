@@ -29,7 +29,7 @@ class Settings(BaseSettings):
         description="Google Gemini API key. If not provided, fallback summarizer is used.",
     )
     GEMINI_MODEL: str = Field(
-        default="gemini-2.5-flash",
+        default="gemini-3.8-flash",
         description="Gemini model identifier for structured JSON summarization.",
     )
 
