@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="tr">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -270,7 +270,7 @@
           <tr>
             <td align="center" style="padding: 12px 18px 4px 18px;">
               <div class="masthead-title">The Morning Gazette</div>
-              <div class="masthead-sub">All The Tech, AI &amp; Financial Intelligence Fit To Print &bull; Autonomous Daily Edition</div>
+              <div class="masthead-sub">Tüm Teknoloji, Yapay Zeka ve Finans Dünyasından Günlük Bülten &bull; Otonom Günlük Baskı</div>
             </td>
           </tr>
 
@@ -286,7 +286,7 @@
                     {{ content.edition_date }}
                   </td>
                   <td align="right" style="font-size: 11px; font-weight: 700; color: #222222;">
-                    AUTONOMOUS PRINT
+                    OTONOM BASKI
                   </td>
                 </tr>
               </table>
@@ -341,8 +341,8 @@
                       {{ content.headline.detailed_analysis }}
                     </div>
                     <div class="source-meta">
-                      Source: <strong>{{ content.headline.source_name }}</strong> &bull;
-                      <a href="{{ content.headline.source_url }}" target="_blank">Read Full Coverage &rarr;</a>
+                      Kaynak: <strong>{{ content.headline.source_name }}</strong> &bull;
+                      <a href="{{ content.headline.source_url }}" target="_blank">Haberi Oku &rarr;</a>
                     </div>
                   </td>
                 </tr>
@@ -350,7 +350,7 @@
 
               <!-- Section Divider: VENTURE & TECH -->
               <div class="section-divider">
-                <span class="section-heading">&mdash;&nbsp; VENTURE &amp; TECHNOLOGY ANALYSES &nbsp;&mdash;</span>
+                <span class="section-heading">&mdash;&nbsp; GİRİŞİM &amp; TEKNOLOJİ ANALİZLERİ &nbsp;&mdash;</span>
               </div>
 
               <!-- ========================================================= -->
@@ -368,11 +368,11 @@
                     </div>
                     <div class="story-summary">{{ story.summary }}</div>
                     <div class="takeaway-box">
-                      <strong>Strategic Takeaway:</strong> {{ story.key_takeaway }}
+                      <strong>Stratejik Değerlendirme:</strong> {{ story.key_takeaway }}
                     </div>
                     <div class="source-meta">
-                      Source: {{ story.source_name }} &bull;
-                      <a href="{{ story.source_url }}" target="_blank">Explore &rarr;</a>
+                      Kaynak: {{ story.source_name }} &bull;
+                      <a href="{{ story.source_url }}" target="_blank">İncele &rarr;</a>
                     </div>
                   </td>
 
@@ -386,11 +386,11 @@
                     </div>
                     <div class="story-summary">{{ story2.summary }}</div>
                     <div class="takeaway-box">
-                      <strong>Strategic Takeaway:</strong> {{ story2.key_takeaway }}
+                      <strong>Stratejik Değerlendirme:</strong> {{ story2.key_takeaway }}
                     </div>
                     <div class="source-meta">
-                      Source: {{ story2.source_name }} &bull;
-                      <a href="{{ story2.source_url }}" target="_blank">Explore &rarr;</a>
+                      Kaynak: {{ story2.source_name }} &bull;
+                      <a href="{{ story2.source_url }}" target="_blank">İncele &rarr;</a>
                     </div>
                   </td>
                   {% else %}
@@ -402,7 +402,7 @@
 
               <!-- Section Divider: AI TOOLS & MODELS -->
               <div class="section-divider">
-                <span class="section-heading">&mdash;&nbsp; AI TOOLS &amp; OPEN SOURCE SPOTLIGHT &nbsp;&mdash;</span>
+                <span class="section-heading">&mdash;&nbsp; YAPAY ZEKA ARAÇLARI &amp; AÇIK KAYNAK DÜNYASI &nbsp;&mdash;</span>
               </div>
 
               <!-- ========================================================= -->
@@ -422,8 +422,8 @@
                             </span>
                             <div class="tool-desc">{{ tool.description }}</div>
                             <div class="tool-why">
-                              <strong>Why It Matters:</strong> {{ tool.why_it_matters }}
-                              &bull; <a href="{{ tool.source_url }}" target="_blank" style="color: #8c1d18; text-decoration: underline; font-weight: 600;">View Repository / Paper &rarr;</a>
+                              <strong>Neden Önemli:</strong> {{ tool.why_it_matters }}
+                              &bull; <a href="{{ tool.source_url }}" target="_blank" style="color: #8c1d18; text-decoration: underline; font-weight: 600;">Projeyi / Makaleyi İncele &rarr;</a>
                             </div>
                           </td>
                         </tr>
@@ -436,23 +436,23 @@
 
               <!-- Section Divider: MARKET BRIEFING -->
               <div class="section-divider">
-                <span class="section-heading">&mdash;&nbsp; FINANCIAL BRIEFING &amp; MARKET OUTLOOK &nbsp;&mdash;</span>
+                <span class="section-heading">&mdash;&nbsp; FİNANSAL BÜLTEN &amp; PİYASA GÖRÜNÜMÜ &nbsp;&mdash;</span>
               </div>
 
               <!-- ========================================================= -->
               <!-- 4. MARKET INSIGHT & COMMENTARY                             -->
               <!-- ========================================================= -->
               <div class="market-box">
-                <div class="market-title">Macroeconomic Overview &amp; Market Dynamics</div>
+                <div class="market-title">Makroekonomik Genel Bakış &amp; Piyasa Dinamikleri</div>
                 <div class="market-body">
                   {{ content.market_insight.market_summary }}
                 </div>
                 <div class="market-body" style="font-size: 12px; color: #444444; border-top: 1px dashed #d5cfc2; padding-top: 8px;">
-                  <strong>Foreign Exchange:</strong> {{ content.market_insight.fx_commentary }}<br />
-                  <strong>Digital Assets:</strong> {{ content.market_insight.crypto_commentary }}
+                  <strong>Döviz Kurları:</strong> {{ content.market_insight.fx_commentary }}<br />
+                  <strong>Kripto Varlıklar:</strong> {{ content.market_insight.crypto_commentary }}
                 </div>
                 <div class="takeaway-box" style="margin-top: 8px; margin-bottom: 0;">
-                  <strong>Editorial Desk Take:</strong> {{ content.market_insight.editorial_take }}
+                  <strong>Editör Masası Notu:</strong> {{ content.market_insight.editorial_take }}
                 </div>
               </div>
 
@@ -462,10 +462,10 @@
           <!-- Footer & Colophon -->
           <tr>
             <td class="footer">
-              <strong style="color: #111111; letter-spacing: 1px; text-transform: uppercase;">The Morning Gazette &bull; Autonomous Editorial Pipeline</strong><br />
-              Synthesized autonomously from open-source APIs &amp; Google Gemini AI.<br />
-              Zero tracking &bull; Privacy-first &bull; Independent publication<br />
-              <span style="font-size: 10px; color: #999999;">&copy; {{ content.edition_date.split(',')[-1].strip() if content.edition_date else '2026' }} The Morning Gazette. All rights reserved.</span>
+              <strong style="color: #111111; letter-spacing: 1px; text-transform: uppercase;">The Morning Gazette &bull; Otonom Editöryal Veri Hattı</strong><br />
+              Açık kaynak veri kaynakları ve Google Gemini yapay zekası ile otonom olarak derlenmiştir.<br />
+              Sıfır izleme &bull; Gizlilik odaklı &bull; Bağımsız bülten<br />
+              <span style="font-size: 10px; color: #999999;">&copy; {{ content.edition_date.split(',')[-1].strip() if content.edition_date else '2026' }} The Morning Gazette. Tüm hakları saklıdır.</span>
             </td>
           </tr>
 

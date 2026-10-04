@@ -15,8 +15,8 @@ from fetchers.base import FinanceSummary
 class HeadlineStory(BaseModel):
     """The premier front-page lead headline story."""
     kicker: str = Field(
-        default="EXCLUSIVE LEAD",
-        description="Category kicker / label (e.g. AI REVOLUTION, VENTURE CAPITAL, TECH SHIFT).",
+        default="ÖZEL HABER",
+        description="Category kicker / label (e.g. YAPAY ZEKA DEVRİMİ, GİRİŞİM EKOSİSTEMİ).",
     )
     title: str = Field(
         description="Compelling, editorial newspaper headline.",
@@ -38,8 +38,8 @@ class HeadlineStory(BaseModel):
 class TechStartupArticle(BaseModel):
     """Column article in the two-column tech & venture stream."""
     category: str = Field(
-        default="TECH & VENTURE",
-        description="Section category (e.g. SOFTWARE ARCHITECTURE, STARTUP ECOSYSTEM, CYBERSECURITY).",
+        default="TEKNOLOJİ & GİRİŞİM",
+        description="Section category (e.g. YAZILIM MİMARİSİ, GİRİŞİM EKOSİSTEMİ, SİBER GÜVENLİK).",
     )
     title: str = Field(
         description="Sharp headline for the article.",
@@ -64,8 +64,8 @@ class AIToolModel(BaseModel):
         description="Tool, library, repository, or paper title.",
     )
     category: str = Field(
-        default="Open Source",
-        description="Type: Model, Open Source Tool, Research Paper, Library.",
+        default="Açık Kaynak",
+        description="Type: Model, Açık Kaynak Araç, Araştırma Makalesi, Kütüphane.",
     )
     description: str = Field(
         description="What it does and core technical architecture.",
@@ -97,10 +97,10 @@ class MarketInsight(BaseModel):
 class GazetteContent(BaseModel):
     """Root structured data container for the entire Morning Gazette issue."""
     edition_date: str = Field(
-        description="Formatted issue dateline (e.g. 'Friday, October 2, 2026').",
+        description="Formatted issue dateline (e.g. '4 Ekim 2026, Pazar').",
     )
     edition_number: str = Field(
-        default="No. 1,428",
+        default="Sayı 1.428",
         description="Gazette edition / issue number.",
     )
     headline: HeadlineStory = Field(

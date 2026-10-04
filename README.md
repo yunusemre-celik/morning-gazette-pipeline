@@ -2,12 +2,13 @@
 
 [![Python 3.12+](https://img.shields.io/badge/Python-3.12%2B-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/)
 [![AI - Google Gemini](https://img.shields.io/badge/AI-Google%20Gemini-4285F4?style=flat&logo=google&logoColor=white)](https://ai.google.dev/)
+[![Language: Turkish (Customizable)](https://img.shields.io/badge/Language-Türkçe%20(Customizable)-0088cc?style=flat)](#4-language-selection--localization-guide-dil-seçimi-ve-yerelleştirme)
 [![CI / CD - GitHub Actions](https://img.shields.io/badge/Automation-GitHub%20Actions-2088FF?style=flat&logo=githubactions&logoColor=white)](https://github.com/)
 [![Tests - 24/24 Passing](https://img.shields.io/badge/Tests-24%20Passed%20(100%25)-success?style=flat&logo=pytest&logoColor=white)]()
 [![Email - Gmail Safe < 85KB](https://img.shields.io/badge/Email%20HTML-Inlined%20%3C%2085%20KB-E65100?style=flat&logo=gmail&logoColor=white)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-> **An autonomous editorial pipeline that aggregates tech, AI, finance, and startup intelligence from free/open APIs, synthesizes it with Google Gemini into structured JSON, and compiles a vintage broadsheet newspaper email newsletter with inlined CSS strictly under 85 KB.**
+> **An autonomous editorial pipeline that aggregates tech, AI, finance, and startup intelligence from free/open APIs, synthesizes it with Google Gemini into structured JSON in Turkish (or any language of your choice), and compiles a vintage broadsheet newspaper email newsletter with inlined CSS strictly under 85 KB.**
 
 ---
 
@@ -257,12 +258,40 @@ File: [`fetchers/finance.py`](fetchers/finance.py)
 - **Crypto Tokens**: Update CoinGecko IDs from `bitcoin,ethereum` to `solana,avalanche,ripple`.
 - **Currencies**: Add any global currency supported by Frankfurter API (e.g., `GBP`, `JPY`, `CHF`).
 
-### 4. Changing Language, AI Persona & Editorial Tone
-File: [`processors/summarizer.py`](processors/summarizer.py#L202)
+### 4. Language Selection & Localization Guide (Dil Seçimi ve Yerelleştirme)
 
-In `_prepare_prompt()`:
-- **Switch Language**: Change the prompt instruction from *"Produce a newspaper digest in English"* to *"Produce a structured, executive-level newspaper digest in Turkish (Türkçe)"*.
-- **Persona**: Guide Gemini to adopt different perspectives (e.g. *Senior Cybersecurity Architect*, *Venture Capital Analyst*, or *Indie Hacker*).
+> 🇹🇷 **Varsayılan Dil (Current Default): Türkçe**
+> 
+> The Morning Gazette veri boru hattı, küresel İngilizce kaynakları (Hacker News, TechCrunch, GitHub, Hugging Face vb.) arka planda toplayıp **akıcı, profesyonel bir gazetecilik üslubuyla Türkçe** bülten üretecek şekilde yerelleştirilmiştir. Hem yapay zeka özetleme motoru hem acil durum yedek sistemi (fallback) hem de e-posta şablonu tamamen Türkçe çıktı üretir.
+
+İstediğiniz herhangi bir dile (İngilizce, Almanca, İspanyolca vb.) çevirmek veya kişiselleştirmek için yalnızca aşağıdaki 3 dosyada düzenleme yapmanız yeterlidir:
+
+#### 1️⃣ Yapay Zeka Prompt'u, Tarih Formatı ve Yedek Motor
+Dosya: [`processors/summarizer.py`](processors/summarizer.py)
+* **Yapay Zeka Prompt'u (`_prepare_prompt`)**: İstediğiniz hedef dili ve editoryal tonu belirtin:
+  ```python
+  # Örnek: İngilizceye geri dönmek için
+  "Produce a structured, executive-level newspaper digest in English."
+  # Veya Almanca:
+  "Erstellen Sie eine strukturierte, anspruchsvolle Zeitungszusammenfassung auf Deutsch."
+  ```
+* **Tarih Formatı (`format_gazette_date`)**: `TURKISH_MONTHS` ve `TURKISH_DAYS` sözlüklerini hedef dilinizin ay ve gün isimleriyle güncelleyin.
+* **Çevrimdışı Yedek Metinler (`FallbackSummarizer`)**: Gemini API kotası dolduğunda veya çevrimdışı modda devreye giren sabit şablon cümlelerini (manşet, çıkarımlar, piyasa özeti) hedef dilinize uyarlayın.
+
+#### 2️⃣ E-posta HTML Şablonu
+Dosya: [`templates/newspaper.html`](templates/newspaper.html)
+* **Dil Etiketi**: `<html lang="tr">` alanını hedef dilinizin koduna (örn. `en`, `de`, `es`) çevirin.
+* **Bölüm Başlıkları & Etiketler**:
+  * `GİRİŞİM & TEKNOLOJİ ANALİZLERİ` &rarr; `VENTURE & TECHNOLOGY ANALYSES`
+  * `YAPAY ZEKA ARAÇLARI & AÇIK KAYNAK DÜNYASI` &rarr; `AI TOOLS & OPEN SOURCE SPOTLIGHT`
+  * `FİNANSAL BÜLTEN & PİYASA GÖRÜNÜMÜ` &rarr; `FINANCIAL BRIEFING & MARKET OUTLOOK`
+  * Kart etiketleri: `Stratejik Değerlendirme:` (`Strategic Takeaway:`), `Neden Önemli:` (`Why It Matters:`), `Haberi Oku →` (`Read Full Coverage →`).
+* **Alt Bilgi (Footer)**: Gazete künyesi ve telif hakkı metinlerini düzenleyin.
+
+#### 3️⃣ E-posta Gönderici & Düz Metin
+Dosya: [`builders/email_builder.py`](builders/email_builder.py)
+* **Konu Satırı**: `subject = f"The Morning Gazette — {content.edition_date} — ..."`
+* **Düz Metin Alternatifi (`plain_text`)**: HTML desteklemeyen e-posta istemcileri için `MANŞET:`, `Haberin devamı:`, `PİYASA NOTU:` gibi başlıkları hedef dilinizle eşleştirin.
 
 ### 5. Customizing Newspaper Sections & Layout
 - **Data Model**: Edit [`processors/schema.py`](processors/schema.py) to add new fields (e.g. `book_of_the_day`, `github_trending_dev`, `quote_of_the_morning`).

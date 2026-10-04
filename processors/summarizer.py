@@ -31,11 +31,20 @@ from processors.schema import (
 logger = logging.getLogger("processors.summarizer")
 
 
+TURKISH_MONTHS = {
+    1: "Ocak", 2: "Şubat", 3: "Mart", 4: "Nisan", 5: "Mayıs", 6: "Haziran",
+    7: "Temmuz", 8: "Ağustos", 9: "Eylül", 10: "Ekim", 11: "Kasım", 12: "Aralık"
+}
+TURKISH_DAYS = {
+    0: "Pazartesi", 1: "Salı", 2: "Çarşamba", 3: "Perşembe", 4: "Cuma", 5: "Cumartesi", 6: "Pazar"
+}
+
+
 def format_gazette_date(dt: Optional[datetime.datetime] = None) -> str:
-    """Format datetime into standard English newspaper dateline (e.g. 'Friday, October 2, 2026')."""
+    """Format datetime into standard Turkish newspaper dateline (e.g. '4 Ekim 2026, Pazar')."""
     if dt is None:
         dt = datetime.datetime.now()
-    return dt.strftime("%A, %B %d, %Y")
+    return f"{dt.day} {TURKISH_MONTHS.get(dt.month, '')} {dt.year}, {TURKISH_DAYS.get(dt.weekday(), '')}"
 
 
 # Backward compatibility alias
@@ -48,7 +57,7 @@ class FallbackSummarizer:
 
     Activated when Gemini API key is missing or when all network/API retries fail.
     Guarantees zero-crash delivery of The Morning Gazette by synthesizing
-    raw headlines, repositories, and financial data into the schema.
+    raw headlines, repositories, and financial data into the schema in Turkish.
     """
 
     @classmethod
@@ -62,40 +71,40 @@ class FallbackSummarizer:
             top_story = max(stories, key=lambda s: s.score)
             stories.remove(top_story)
             headline = HeadlineStory(
-                kicker="FRONT PAGE LEAD",
+                kicker="GÜNÜN MANŞETİ",
                 title=top_story.title,
                 lead_paragraph=(
-                    f"Leading discussions across {top_story.source}, this pivotal technological development "
-                    f"is sending ripples across the global software and startup ecosystem."
+                    f"{top_story.source} üzerinde en çok tartışılan bu kritik teknolojik gelişme, "
+                    f"küresel yazılım ve girişimcilik ekosisteminde geniş yankı uyandırıyor."
                 ),
                 detailed_analysis=(
-                    f"Garnering {top_story.score} community points and {top_story.comments} discussions, "
-                    f"industry observers highlight that this breakthrough signals a critical inflection point "
-                    f"in infrastructure scalability and modern software engineering paradigms."
+                    f"Topluluktan {top_story.score} puan ve {top_story.comments} yorum toplayan bu gelişme, "
+                    f"sektör analistlerine göre ölçeklenebilirlik ve modern yazılım mimarilerinde "
+                    f"önemli bir dönüşümün habercisi olarak değerlendiriliyor."
                 ),
                 source_name=top_story.source,
                 source_url=top_story.url,
             )
         else:
             headline = HeadlineStory(
-                kicker="FRONT PAGE LEAD",
-                title="Next-Generation Autonomous Systems Surge Across Developer Ecosystems",
-                lead_paragraph="The global open-source community continues to accelerate autonomous tooling and frontier AI agents.",
-                detailed_analysis="Software architectures are undergoing a fundamental transformation toward lightweight, modular local models.",
-                source_name="The Morning Gazette Editorial Desk",
+                kicker="GÜNÜN MANŞETİ",
+                title="Yeni Nesil Otonom Sistemler Geliştirici Ekosisteminde Yükseliyor",
+                lead_paragraph="Küresel açık kaynak topluluğu, otonom araçlar ve öncü yapay zeka ajanlarını hızla geliştirmeye devam ediyor.",
+                detailed_analysis="Yazılım mimarileri, hafif ve modüler yerel modellere doğru köklü bir paradigma dönüşümü yaşıyor.",
+                source_name="The Morning Gazette Editör Masası",
                 source_url="https://github.com",
             )
 
         # 2. Tech & Startup Stories: 4-6 articles
         tech_articles: list[TechStartupArticle] = []
         for s in stories[:6]:
-            summary_text = s.summary or f"Trending on {s.source} with {s.score} points and {s.comments} community responses."
+            summary_text = s.summary or f"{s.source} akışında {s.score} puan ve {s.comments} topluluk yorumu ile öne çıktı."
             tech_articles.append(
                 TechStartupArticle(
                     category=s.source.upper(),
                     title=s.title,
                     summary=summary_text,
-                    key_takeaway="Signals emerging architectural patterns and operational efficiencies for agile engineering teams.",
+                    key_takeaway="Çevik mühendislik ekipleri için yeni mimari kalıplara ve operasyonel verimliliğe işaret ediyor.",
                     source_name=s.source,
                     source_url=s.url,
                 )
@@ -107,9 +116,9 @@ class FallbackSummarizer:
             ai_tools.append(
                 AIToolModel(
                     name=repo.name,
-                    category="Open Source Repository",
-                    description=repo.description or "Trending open-source artificial intelligence and developer tooling.",
-                    why_it_matters=f"Backed by the developer community with {repo.stars:,} GitHub stars.",
+                    category="Açık Kaynak Deposu",
+                    description=repo.description or "Geliştirici ekosisteminde trend olan açık kaynak yapay zeka aracı.",
+                    why_it_matters=f"Geliştirici topluluğu tarafından {repo.stars:,} GitHub yıldızı ile destekleniyor.",
                     source_url=repo.html_url,
                 )
             )
@@ -118,9 +127,9 @@ class FallbackSummarizer:
             ai_tools.append(
                 AIToolModel(
                     name=paper.title,
-                    category="Research Paper / Model",
-                    description=paper.summary or "Spotlight research publication featured on Hugging Face.",
-                    why_it_matters=f"Earned {paper.upvotes} community upvotes for advancing frontier machine intelligence.",
+                    category="Araştırma Makalesi / Model",
+                    description=paper.summary or "Hugging Face üzerinde öne çıkan araştırma makalesi.",
+                    why_it_matters=f"Öncü makine zekasını geliştirdiği için {paper.upvotes} topluluk oyu aldı.",
                     source_url=paper.url,
                 )
             )
@@ -134,29 +143,29 @@ class FallbackSummarizer:
         btc = crypto_map.get("BTC")
         eth = crypto_map.get("ETH")
 
-        fx_desc = f"USD/TRY trading near {usd_rate:.2f} TL and EUR/TRY near {eur_rate:.2f} TL." if usd_rate else "FX pairs holding steady."
+        fx_desc = f"Dolar/TL {usd_rate:.2f} TL ve Euro/TL {eur_rate:.2f} TL seviyelerinde işlem görüyor." if usd_rate else "Döviz kurları yatay seyrediyor."
         crypto_desc = ""
         if btc:
-            crypto_desc += f"Bitcoin is at ${btc.price_usd:,.0f} ({btc.change_24h:+.2f}%) "
+            crypto_desc += f"Bitcoin ${btc.price_usd:,.0f} ({btc.change_24h:+.2f}%) seviyesinde "
         if eth:
-            crypto_desc += f"with Ethereum at ${eth.price_usd:,.0f} ({eth.change_24h:+.2f}%)."
+            crypto_desc += f"ve Ethereum ${eth.price_usd:,.0f} ({eth.change_24h:+.2f}%) bandında hareket ediyor."
 
         market_insight = MarketInsight(
-            market_summary="Global markets demonstrate measured momentum as technology bellwethers prepare for upcoming earnings and central bank commentary.",
+            market_summary="Küresel piyasalar, teknoloji devlerinin bilanço açıklamaları ve merkez bankası sinyalleri öncesinde dengeli bir momentum sergiliyor.",
             fx_commentary=fx_desc,
-            crypto_commentary=crypto_desc or "Digital asset markets maintain disciplined consolidation within key technical ranges.",
-            editorial_take="For startup founders and operators, capital efficiency, hedging currency exposures, and runway preservation remain paramount.",
+            crypto_commentary=crypto_desc or "Kripto varlık piyasaları temel teknik bantlar içerisinde konsolidasyonunu sürdürüyor.",
+            editorial_take="Girişim kurucuları ve yöneticileri için sermaye verimliliği, kur riskini dengeleme ve nakit akışını koruma öncelikli kalmaya devam ediyor.",
         )
 
         return GazetteContent(
             edition_date=date_str,
-            edition_number=f"No. {datetime.datetime.now().strftime('%y%j')}",
+            edition_number=f"Sayı {datetime.datetime.now().strftime('%y%j')}",
             headline=headline,
             tech_startup_stories=tech_articles,
             ai_tools=ai_tools,
             market_insight=market_insight,
             raw_finance=raw_data.finance,
-            curator_note="This edition was autonomously generated by The Morning Gazette Data Pipeline.",
+            curator_note="Bu sayı The Morning Gazette Otonom Veri Hattı tarafından üretilmiştir.",
         )
 
 
@@ -200,30 +209,32 @@ class GeminiSummarizer:
         ]
 
         return f"""
-You are the Editor-in-Chief of 'The Morning Gazette', a prestigious daily technology and financial newspaper.
-Analyze the following raw intelligence collected across tech news, open-source repositories, AI research, and financial markets.
-Produce a structured, intellectually rigorous, executive-level newspaper digest in English.
+Sen saygın ve prestijli bir günlük teknoloji ve finans gazetesi olan 'The Morning Gazette'in Genel Yayın Yönetmenisin (Editor-in-Chief).
+Teknoloji haberleri, açık kaynak projeler, yapay zeka araştırmaları ve finans piyasalarından toplanan aşağıdaki ham istihbaratı analiz et.
+Üst düzey yöneticilere, mühendislere ve girişimcilere hitap eden, entelektüel derinliği yüksek, yapılandırılmış bir gazete bültenini TAMAMEN TÜRKÇE olarak hazırla.
 
-### EDITORIAL GUIDELINES:
-1. 'headline' (Lead Story): Select the single most transformative, globally impactful tech story. Craft an authoritative, compelling headline, a sophisticated lead paragraph (lead_paragraph), and an in-depth analytical breakdown (detailed_analysis).
-2. 'tech_startup_stories': Curate 4 to 6 distinct, high-signal technology and venture capital developments. Provide a summary and a sharp 'key_takeaway' for each.
-3. 'ai_tools': Highlight 3 to 5 premier open-source tools, repositories, or research papers. Articulate clearly what they do and 'why_it_matters' to software engineers and tech leaders.
-4. 'market_insight': Synthesize the macroeconomic environment, currency exchange rates (USD/TRY, EUR/TRY), and crypto assets (BTC, ETH). Provide a tactical 'editorial_take' for startup founders and investors.
-5. 'edition_date': Format today's date (e.g. '{format_gazette_date()}').
+### EDİTÖRYAL KURALLAR (EDITORIAL GUIDELINES):
+1. 'headline' (Günün Manşeti): Küresel ölçekte en büyük etkiyi yaratan, dönüştürücü tek bir teknoloji konusunu manşete taşı. Çarpıcı bir Türkçe başlık (title), prestijli bir haber diliyle yazılmış giriş paragrafı (lead_paragraph) ve derinlemesine teknik/sektörel bir analiz (detailed_analysis) üret. 'kicker' alanına büyük harflerle Türkçe kategori etiketi yaz (Örn: "YAPAY ZEKA DEVRİMİ", "KÜRESEL TEKNOLOJİ", "YAZILIM MİMARİSİ").
+2. 'tech_startup_stories': Girişim sermayesi ve teknoloji dünyasından 4 ila 6 adet yüksek sinyalli haberi seç ve derle. Her biri için akıcı bir Türkçe özet (summary) ve girişimcilere/mühendislere yönelik keskin bir stratejik çıkarım ('key_takeaway') yaz. 'category' alanını büyük harfle Türkçe yaz (Örn: "GİRİŞİM EKOSİSTEMİ", "SİBER GÜVENLİK", "BULUT MİMARİSİ").
+3. 'ai_tools': GitHub ve Hugging Face akışından 3 ila 5 adet öne çıkan açık kaynak araç, kütüphane veya araştırma makalesini seç. Ne işe yaradığını (description) ve yazılım mühendisleri ile teknoloji liderleri için 'Neden Önemli' olduğunu ('why_it_matters') Türkçe olarak açıkla. 'category' alanını Türkçe yaz (Örn: "Açık Kaynak Araç", "Araştırma Makalesi", "Model").
+4. 'market_insight': Makroekonomik görünümü (market_summary), döviz kurlarını (fx_commentary: Dolar/TL ve Euro/TL) ve kripto para piyasasını (crypto_commentary: BTC ve ETH) analiz et. Girişim kurucuları, CTO'lar ve yatırımcılar için taktiksel bir tavsiye ('editorial_take') ekle.
+5. 'edition_date': Bugünün tarihini Türkçe biçimde yaz (Örn: '{format_gazette_date()}').
 
-### RAW INGESTED DATA:
-**Technology & Startup Feeds:**
+TÜM ÇIKTILAR, BAŞLIKLAR, METİNLER VE YORUMLAR AKICI VE PROFESYONEL BİR TÜRKÇE İLE OLMALIDIR.
+
+### HAM VERİLER (RAW INGESTED DATA):
+**Teknoloji ve Girişim Akışları:**
 {chr(10).join(tech_context)}
 
-**Open Source Repositories (GitHub):**
+**Açık Kaynak Kod Depoları (GitHub):**
 {chr(10).join(repo_context)}
 
-**AI Research Papers & Models (Hugging Face):**
+**Yapay Zeka Makaleleri ve Modeller (Hugging Face):**
 {chr(10).join(paper_context)}
 
-**Financial Markets (FX & Crypto):**
-FX Rates: {", ".join(fx_context) if fx_context else "Data unavailable"}
-Crypto Assets: {", ".join(crypto_context) if crypto_context else "Data unavailable"}
+**Finansal Piyasalar (Döviz & Kripto):**
+Döviz Kurları: {", ".join(fx_context) if fx_context else "Veri alınamadı"}
+Kripto Varlıklar: {", ".join(crypto_context) if crypto_context else "Veri alınamadı"}
 """
 
     async def summarize(self, raw_data: AggregatedRawData) -> GazetteContent:
